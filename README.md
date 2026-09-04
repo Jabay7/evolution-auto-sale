@@ -18,7 +18,6 @@ backend, no CMS, no third-party tracking.
 | What | Where | Currently |
 | --- | --- | --- |
 | **Booking profile URL** | `config/site.ts` → `bookingProfileUrl` | Placeholder `"BOOKING_PROFILE_URL"`. Until it is a real `https://` URL, every "View Live Availability" button falls back to the Instagram profile so nothing links to a dead page. A warning prints in the dev console. |
-| **Production domain** | `config/site.ts` → `siteUrl` | `https://evolutionautosale.com` — used for canonical URL, sitemap, robots and social metadata. |
 | **Vehicle years** | `data/fleet.ts` → `year` | Omitted. Model names were read from the photographs; confirm them and add years when known. |
 
 Nothing else is required to deploy.
@@ -34,7 +33,30 @@ npm run build      # production build
 npm run lint
 ```
 
-Deploy to Vercel by importing the repository — no environment variables needed.
+## Deploying
+
+The site is a static export served by GitHub Pages at
+**https://evolutionautosaleturo.com** (repo `Jabay7/evolution-auto-sale`,
+branch `gh-pages`).
+
+```bash
+npm run build                     # writes ./out
+cd out
+git init -b gh-pages && git add -A && git commit -m "Deploy"
+git push --force https://github.com/Jabay7/evolution-auto-sale.git gh-pages:gh-pages
+```
+
+`public/CNAME` carries the domain and `public/.nojekyll` stops GitHub from
+hiding the `_next/` folder; both are copied into `out` by the build.
+
+There is no GitHub Actions workflow because the stored `gh` token lacks the
+`workflow` scope. To automate deploys, run `gh auth refresh -s workflow` and add
+a workflow that runs `npm ci && npm run build` and publishes `out`.
+
+### DNS
+
+Apex `A` records point at GitHub Pages; `www` is a `CNAME` to `jabay7.github.io`.
+See "DNS records" in the deploy notes if these ever need re-adding.
 
 ---
 
@@ -122,6 +144,13 @@ scripts/                image preparation
 - **Third-party marketplace**: the site carries no marketplace branding and does
   not copy any marketplace interface, imagery, pricing or reviews. Buttons say
   "View Live Availability" and link to the company's own host profile.
-- **Licence plates** are legible in some photographs. If you would rather they
-  were not, blur them in the source files in `PICS/` and re-run the image
-  script.
+- **Licence plates are blurred** on the way through the image pipeline, using
+  the regions in `scripts/plates.json`. Four of the vehicles have no front plate
+  fitted and need no entry. Add a region for any new photograph showing a
+  readable plate, then re-run `node scripts/prepare-images.mjs`.
+- **No image metadata ships.** Sharp drops EXIF, XMP and IPTC during conversion,
+  so no GPS coordinates, device identifiers or capture timestamps reach the web.
+  The untouched originals stay in `PICS/`, which is gitignored.
+- **Content-Security-Policy** travels in a `<meta>` tag (static hosting sets no
+  headers). It includes `form-action 'none'`, which makes it impossible for
+  injected markup to submit data from this site.
