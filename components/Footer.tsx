@@ -1,4 +1,5 @@
 import { bookingHref, siteConfig } from "@/config/site";
+import { BrandMark } from "@/components/ui/BrandMark";
 import { Wordmark } from "@/components/ui/Wordmark";
 
 const columns = [
@@ -28,7 +29,13 @@ export function Footer() {
       <div className="evo-container py-20">
         <div className="grid gap-14 md:grid-cols-12">
           <div className="md:col-span-6">
-            <Wordmark />
+            {/* Not a link: the header mark already carries the back-to-top
+                anchor, and a second copy would only add a duplicate stop for
+                anyone tabbing through. */}
+            <div className="flex items-center gap-3">
+              <BrandMark />
+              <Wordmark />
+            </div>
             <p className="mt-7 text-sm leading-relaxed text-muted">
               Specialty Vehicle Rentals
               <br />
