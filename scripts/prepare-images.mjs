@@ -39,7 +39,7 @@ const FLEET = [
 
 /** Editorial crops. [source, output, width, height, gravity] */
 const CROPS = [
-  ["IMG_1334.png", "hero/evolution-hero.webp", 1125, 703, "centre"],
+  ["PICS/Background-pic.webp", "hero/evolution-hero.webp", 1200, 750, "centre"],
   ["IMG_1332.png", "hero/final-cta.webp", 1125, 633, "centre"],
   ["IMG_1336.png", "fleet/fleet-lineup.webp", 1125, 546, "centre"],
   ["IMG_1330.png", "oceanside/oceanside-coastal.webp", 900, 1125, "centre"],
@@ -50,6 +50,10 @@ const CROPS = [
 ];
 
 const webp = { quality: 84, effort: 6 };
+
+/* The hero source is only 596px wide, so it is resampled up with a good kernel
+   rather than left to the browser. This adds no detail — replace the source
+   with a larger original when one exists. */
 
 /** Vehicle cards never render wider than ~440 CSS px, so 900 covers 2x screens. */
 const CARD_MAX_WIDTH = 900;
@@ -62,7 +66,9 @@ const plates = JSON.parse(await readFile("scripts/plates.json", "utf8"));
  * the image is untouched.
  */
 async function loadSource(file) {
-  const source = path.join(SRC, file);
+  /* Entries containing a slash are paths from the repo root; bare names come
+     from the cropped-screenshot folder. */
+  const source = file.includes("/") ? file : path.join(SRC, file);
   const box = plates[file];
   if (!box) return sharp(source);
 

@@ -7,13 +7,15 @@ export function Hero() {
   return (
     <section id="top" className="grain relative isolate flex min-h-[100svh] flex-col justify-end overflow-hidden pt-24">
       {/*
-        Hero photograph. Replace /public/images/hero/evolution-hero.webp with a
-        higher-resolution authorised photograph when one is available — the
-        framing below is tuned to keep the vehicle in shot on portrait phones.
+        Hero photograph. The current source is 596px wide, well under what a
+        full-viewport hero wants; replace
+        /public/images/hero/evolution-hero.webp with a higher-resolution
+        authorised photograph when one is available. The framing below is tuned
+        to keep the vehicle in shot on portrait phones.
       */}
       <Image
         src="/images/hero/evolution-hero.webp"
-        alt="Black Kia K4 sedan from the Evolution Auto Sale fleet photographed at golden hour in Oceanside, California"
+        alt="White performance sedan parked on an open coastal road at sunset"
         fill
         priority
         sizes="100vw"

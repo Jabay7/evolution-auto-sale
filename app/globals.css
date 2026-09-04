@@ -279,6 +279,32 @@ html[data-js="1"] .reveal[data-revealed="true"] {
   );
 }
 
+/*
+  Same brand palette as the button, but flipped: this text sits ON the dark
+  ground rather than under white, so the bright yellow-orange-pink half is what
+  keeps every stop above 3:1 for large text.
+  Colour only goes transparent where background-clip actually works, otherwise
+  the handle would vanish.
+*/
+.instagram-gradient-text {
+  color: var(--evo-text);
+  background-image: linear-gradient(
+    90deg,
+    #ffdc80 0%,
+    #f77737 30%,
+    #e1306c 65%,
+    #c13584 100%
+  );
+}
+
+@supports (background-clip: text) or (-webkit-background-clip: text) {
+  .instagram-gradient-text {
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+}
+
 /* Fine film grain. Keeps large upscaled photographs from looking plasticky. */
 .grain::after {
   content: "";

@@ -33,7 +33,7 @@ export function InstagramSection() {
               </p>
             </Reveal>
             <Reveal delay={220}>
-              <p className="font-display mt-10 text-[clamp(1.5rem,3vw,2.25rem)] font-medium tracking-[-0.02em]">
+              <p className="instagram-gradient-text font-display mt-10 w-fit text-[clamp(1.5rem,3vw,2.25rem)] font-medium tracking-[-0.02em]">
                 {siteConfig.instagramHandle}
               </p>
             </Reveal>
