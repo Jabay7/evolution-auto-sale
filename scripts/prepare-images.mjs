@@ -51,8 +51,8 @@ const CROPS = [
 
 /**
  * Brand mark: the square profile photograph, rendered as a circle in the
- * header. Exported at its native 150px so a 40px mark stays sharp on a 3x
- * screen — it is never displayed larger than that.
+ * header. Exported at its native 150px, which keeps the 48px mark sharp on a
+ * 3x screen. Supply a larger original before rendering it any bigger.
  */
 const BRAND = [["PICS/evo-x.jpg", "brand/mark.webp", 150, 150, "centre"]];
 

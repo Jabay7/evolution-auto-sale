@@ -1,7 +1,10 @@
 import Image from "next/image";
 
 type BrandMarkProps = {
-  /** Rendered edge length in CSS pixels. The source is 150px square. */
+  /**
+   * Rendered edge length in CSS pixels. The source is 150px square, so 50 is
+   * the ceiling before a 3x screen starts upscaling it.
+   */
   size?: number;
   className?: string;
 };
@@ -11,7 +14,7 @@ type BrandMarkProps = {
  * plain border-radius crop rather than a cover fit — nothing is lost.
  * The hairline ring keeps the light body of the car off the dark header.
  */
-export function BrandMark({ size = 40, className = "" }: BrandMarkProps) {
+export function BrandMark({ size = 48, className = "" }: BrandMarkProps) {
   return (
     <span
       className={`relative block shrink-0 overflow-hidden rounded-full ring-1 ring-line-strong ${className}`}
