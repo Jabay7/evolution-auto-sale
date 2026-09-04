@@ -94,7 +94,7 @@ there and the whole site follows.
 
 ### Photography
 
-See `public/images/README.md`. Replace a file in place, keep the filename, and
+See `docs/images.md`. Replace a file in place, keep the filename, and
 the site picks it up. `scripts/prepare-images.mjs` converts source photos into
 optimised WebP at the right sizes:
 
@@ -110,8 +110,10 @@ Every colour is a CSS variable in the `:root` block of `app/globals.css`.
 Nothing else hard-codes a colour, so the whole site can be re-skinned from that
 one block when the official brand palette arrives.
 
-There is no logo file yet — the header, footer and social card use a text
-lockup in `components/ui/Wordmark.tsx`. See `public/images/brand/README.md`.
+The header shows a circular photographic mark (`components/ui/BrandMark.tsx`),
+which is also the favicon. There is no vector logo yet, so the wordmark beside
+it, the footer and the social card use a text lockup in
+`components/ui/Wordmark.tsx`. See `docs/brand.md`.
 
 ---
 
@@ -123,13 +125,14 @@ app/
   page.tsx              section composition only
   globals.css           design tokens, typography, scrims, motion
   opengraph-image.tsx   generated social card
-  robots.ts sitemap.ts icon.svg
+  robots.ts sitemap.ts icon.png
 components/             one file per section, plus ui/ primitives
 config/site.ts          business details
 data/fleet.ts           vehicles
 data/faqs.ts            FAQ copy (also feeds FAQ structured data)
 public/images/          photography, organised by role
 scripts/                image preparation
+docs/                   notes on the images and the brand mark
 ```
 
 ## Notes

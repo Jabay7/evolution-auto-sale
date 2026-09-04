@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { bookingHref, navLinks, siteConfig } from "@/config/site";
+import { BrandMark } from "@/components/ui/BrandMark";
 import { CtaLink } from "@/components/ui/CtaLink";
 import { InstagramGlyph } from "@/components/ui/InstagramGlyph";
 import { Wordmark } from "@/components/ui/Wordmark";
@@ -51,7 +52,12 @@ export function Navbar() {
       }`}
     >
       <div className="evo-container flex h-20 items-center justify-between gap-6">
-        <a href="#top" className="shrink-0 py-2" aria-label={`${siteConfig.businessName} — back to top`}>
+        <a
+          href="#top"
+          className="flex shrink-0 items-center gap-3 py-2"
+          aria-label={`${siteConfig.businessName} — back to top`}
+        >
+          <BrandMark />
           <Wordmark compact />
         </a>
 

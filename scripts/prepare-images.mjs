@@ -49,6 +49,13 @@ const CROPS = [
   ["IMG_1326.png", "lifestyle/lifestyle-04.webp", 1125, 482, "centre"],
 ];
 
+/**
+ * Brand mark: the square profile photograph, rendered as a circle in the
+ * header. Exported at its native 150px so a 40px mark stays sharp on a 3x
+ * screen — it is never displayed larger than that.
+ */
+const BRAND = [["PICS/evo-x.jpg", "brand/mark.webp", 150, 150, "centre"]];
+
 const webp = { quality: 84, effort: 6 };
 
 /* The hero source is only 596px wide, so it is resampled up with a good kernel
@@ -95,10 +102,34 @@ for (const [src, out] of FLEET) {
   const image = await loadSource(src);
   await write(image.resize({ width: CARD_MAX_WIDTH, withoutEnlargement: true }), out);
 }
-for (const [src, out, w, h, position] of CROPS) {
+for (const [src, out, w, h, position] of [...CROPS, ...BRAND]) {
   const image = await loadSource(src);
   await write(image.resize({ width: w, height: h, fit: "cover", position }), out);
 }
+
+/**
+ * Favicon. The same mark, masked to a circle so the corners are transparent —
+ * a browser draws the tab icon on its own background, which is usually light,
+ * and a square photograph there would read as a sticker rather than a logo.
+ *
+ * Written to /app, not /public, because that is where Next's `icon` file
+ * convention looks for it. 96px covers the 16 and 32px the browser actually
+ * draws, with room for a hi-dpi tab strip.
+ */
+const FAVICON_SIZE = 96;
+const circleMask = Buffer.from(
+  `<svg width="${FAVICON_SIZE}" height="${FAVICON_SIZE}">` +
+    `<circle cx="${FAVICON_SIZE / 2}" cy="${FAVICON_SIZE / 2}" r="${FAVICON_SIZE / 2}" fill="#fff"/>` +
+    `</svg>`,
+);
+
+const icon = await (await loadSource("PICS/evo-x.jpg"))
+  .resize(FAVICON_SIZE, FAVICON_SIZE, { fit: "cover" })
+  .ensureAlpha()
+  .composite([{ input: circleMask, blend: "dest-in" }])
+  .png({ compressionLevel: 9 })
+  .toFile("app/icon.png");
+console.log(`${"app/icon.png".padEnd(40)} ${icon.width}x${icon.height}  ${Math.round(icon.size / 1024)}KB`);
 
 const blurred = Object.keys(plates).filter((k) => !k.startsWith("_")).length;
 console.log(`

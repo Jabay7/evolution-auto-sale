@@ -1,6 +1,10 @@
 # Image directories
 
-Every photograph on the site is served from here. Replace a file in place
+Notes for editing `/public/images`. This file lives in `/docs`, not beside the
+images, because everything inside `/public` is copied verbatim into the
+deployed site — a README in there would be served to the public.
+
+Every photograph on the site is served from `/public/images`. Replace a file in place
 (keeping the same filename) and the site picks it up — no code changes needed.
 
 | Folder       | Used by                          | Suggested aspect |
@@ -9,7 +13,7 @@ Every photograph on the site is served from here. Replace a file in place
 | `fleet/`     | Vehicle cards, the 60+ band      | ~3:2 landscape   |
 | `lifestyle/` | Editorial photo break            | mixed, see below |
 | `oceanside/` | Location section                 | 4:5 portrait     |
-| `brand/`     | Logo files (none supplied yet)   | SVG preferred    |
+| `brand/`     | Header mark — see `brand.md`     | 1:1 square       |
 
 ## Current files
 
