@@ -1,0 +1,11 @@
+{
+  "_comment": "Licence plate regions in source pixels of the matching file in PICS/cropped, read off a coordinate grid and verified against rendered output. Boxes carry ~20px padding so the blur fully covers the plate. IMG_1326, IMG_1328, IMG_1329 and IMG_1335 have no front plate fitted and are intentionally absent.",
+  "IMG_1325.png": { "left": 200, "top": 395, "width": 116, "height": 92 },
+  "IMG_1327.png": { "left": 50,  "top": 442, "width": 131, "height": 74 },
+  "IMG_1330.png": { "left": 112, "top": 426, "width": 105, "height": 88 },
+  "IMG_1331.png": { "left": 154, "top": 628, "width": 117, "height": 80 },
+  "IMG_1332.png": { "left": 125, "top": 442, "width": 117, "height": 84 },
+  "IMG_1333.png": { "left": 105, "top": 465, "width": 94,  "height": 73 },
+  "IMG_1334.png": { "left": 229, "top": 406, "width": 114, "height": 85 },
+  "IMG_1336.png": { "left": 91,  "top": 239, "width": 111, "height": 78 }
+}

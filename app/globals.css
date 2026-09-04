@@ -1,0 +1,295 @@
+@import "tailwindcss";
+
+/* ==========================================================================
+   Evolution Auto Sale — design tokens
+   Swap these values when the official brand colours arrive. Nothing else
+   in the codebase hard-codes a colour.
+   ========================================================================== */
+
+:root {
+  --evo-bg: #0a0a0a;
+  --evo-elevated: #111111;
+  --evo-card: #151515;
+  --evo-text: #f5f5f2;
+  --evo-muted: #a7a7a2;
+  --evo-line: rgba(255, 255, 255, 0.1);
+  --evo-line-strong: rgba(255, 255, 255, 0.22);
+  --evo-accent: #3b82f6;
+
+  /* Layout rhythm */
+  --evo-gutter: clamp(1.25rem, 4vw, 4rem);
+  --evo-section: clamp(5.5rem, 11vw, 9.5rem);
+  --evo-max: 1440px;
+
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-bg: var(--evo-bg);
+  --color-elevated: var(--evo-elevated);
+  --color-card: var(--evo-card);
+  --color-ink: var(--evo-text);
+  --color-muted: var(--evo-muted);
+  --color-line: var(--evo-line);
+  --color-line-strong: var(--evo-line-strong);
+  --color-accent: var(--evo-accent);
+
+  --font-display: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+}
+
+/* ==========================================================================
+   Base
+   ========================================================================== */
+
+html {
+  scroll-behavior: smooth;
+  /* Clears the sticky header when jumping to an anchor. */
+  scroll-padding-top: 5.5rem;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background-color: var(--evo-bg);
+  color: var(--evo-text);
+  font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* Guards against any full-bleed element causing sideways scroll. */
+  overflow-x: clip;
+}
+
+::selection {
+  background-color: var(--evo-text);
+  color: var(--evo-bg);
+}
+
+:focus-visible {
+  outline: 2px solid var(--evo-accent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* Locks the page while the mobile menu is open. */
+body[data-menu-open="true"] {
+  overflow: hidden;
+}
+
+/* ==========================================================================
+   Layout helpers
+   ========================================================================== */
+
+.evo-container {
+  width: 100%;
+  max-width: var(--evo-max);
+  margin-inline: auto;
+  padding-inline: var(--evo-gutter);
+}
+
+.evo-section {
+  padding-block: var(--evo-section);
+}
+
+/* ==========================================================================
+   Typography
+   ========================================================================== */
+
+.display {
+  font-family: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 0.98;
+  text-wrap: balance;
+}
+
+/* Scales with the shorter viewport dimension so a three-line headline still
+   clears the fold on a 13" laptop. */
+.display-hero {
+  font-size: clamp(2.6rem, min(6.6vw, 9.2vh), 5.75rem);
+  line-height: 0.95;
+  letter-spacing: -0.035em;
+}
+
+.display-xl {
+  font-size: clamp(2.1rem, 5.2vw, 4rem);
+}
+
+.display-lg {
+  font-size: clamp(1.75rem, 3.6vw, 2.75rem);
+}
+
+.display-numeral {
+  font-family: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
+  font-weight: 600;
+  font-size: clamp(5.5rem, 17vw, 14rem);
+  line-height: 0.78;
+  letter-spacing: -0.055em;
+}
+
+.eyebrow {
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--evo-muted);
+}
+
+.label-micro {
+  font-size: 0.625rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.body-lead {
+  font-size: clamp(1rem, 1.15vw, 1.125rem);
+  line-height: 1.7;
+  color: var(--evo-muted);
+  text-wrap: pretty;
+}
+
+/* ==========================================================================
+   Motion — every animation below is disabled under prefers-reduced-motion.
+   ========================================================================== */
+
+/* Only hide content once we know JavaScript can reveal it again. */
+html[data-js="1"] .reveal {
+  opacity: 0;
+  transform: translate3d(0, 20px, 0);
+  transition:
+    opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+html[data-js="1"] .reveal[data-revealed="true"] {
+  opacity: 1;
+  transform: none;
+}
+
+/* The hero must not wait on JavaScript, so it animates on load instead. */
+@keyframes evo-rise {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 22px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.rise {
+  animation: evo-rise 1s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  html[data-js="1"] .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .rise {
+    animation: none;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ==========================================================================
+   Surfaces
+   ========================================================================== */
+
+/*
+  Photographic scrims. Tuned per edge so type stays legible on one side while
+  the photograph itself stays visible on the other — a single flat wash over a
+  full-bleed image crushes dark vehicles into the background.
+  All three derive from the one background token.
+*/
+.scrim-bottom {
+  background-image: linear-gradient(
+    to top,
+    var(--evo-bg) 0%,
+    color-mix(in srgb, var(--evo-bg) 72%, transparent) 20%,
+    color-mix(in srgb, var(--evo-bg) 22%, transparent) 48%,
+    transparent 72%
+  );
+}
+
+.scrim-left {
+  background-image: linear-gradient(
+    to right,
+    color-mix(in srgb, var(--evo-bg) 92%, transparent) 0%,
+    color-mix(in srgb, var(--evo-bg) 72%, transparent) 30%,
+    color-mix(in srgb, var(--evo-bg) 28%, transparent) 58%,
+    transparent 80%
+  );
+}
+
+.scrim-top {
+  background-image: linear-gradient(
+    to bottom,
+    color-mix(in srgb, var(--evo-bg) 78%, transparent),
+    transparent
+  );
+}
+
+@media (max-width: 767px) {
+  .scrim-bottom {
+    background-image: linear-gradient(
+      to top,
+      var(--evo-bg) 0%,
+      color-mix(in srgb, var(--evo-bg) 90%, transparent) 38%,
+      color-mix(in srgb, var(--evo-bg) 58%, transparent) 64%,
+      color-mix(in srgb, var(--evo-bg) 18%, transparent) 86%,
+      transparent 100%
+    );
+  }
+
+  .scrim-left {
+    background-image: none;
+  }
+}
+
+/* Fine film grain. Keeps large upscaled photographs from looking plasticky. */
+.grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.05;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Accordion open/close without measuring heights. */
+.collapse-grid {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.collapse-grid[data-open="true"] {
+  grid-template-rows: 1fr;
+}
+
+.collapse-grid > * {
+  overflow: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .collapse-grid {
+    transition: none;
+  }
+}
