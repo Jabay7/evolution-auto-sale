@@ -18,7 +18,9 @@ type RevealProps = {
  *
  * The hidden starting state lives behind `html[data-js="1"]` (set by the inline
  * script in the root layout), so with JavaScript unavailable the content simply
- * renders. prefers-reduced-motion is handled entirely in CSS.
+ * renders. That script also removes the flag if this component never hydrates,
+ * so a bundle failure degrades to "no animation" rather than "blank page".
+ * prefers-reduced-motion is handled entirely in CSS.
  */
 export function Reveal({ children, delay = 0, className = "", as: Tag = "div" }: RevealProps) {
   const ref = useRef<HTMLElement>(null);
@@ -27,6 +29,9 @@ export function Reveal({ children, delay = 0, className = "", as: Tag = "div" }:
   useEffect(() => {
     const node = ref.current;
     if (!node) return;
+
+    /* Tells the watchdog in the root layout that hydration got this far. */
+    document.documentElement.dataset.revealReady = "1";
 
     const observer = new IntersectionObserver(
       (entries) => {
