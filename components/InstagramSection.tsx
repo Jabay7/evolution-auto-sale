@@ -38,7 +38,7 @@ export function InstagramSection() {
               </p>
             </Reveal>
             <Reveal delay={280}>
-              <CtaLink href={siteConfig.instagramUrl} external className="mt-8">
+              <CtaLink href={siteConfig.instagramUrl} external variant="instagram" className="mt-8">
                 <InstagramGlyph className="size-4" />
                 Follow {siteConfig.instagramHandle}
               </CtaLink>

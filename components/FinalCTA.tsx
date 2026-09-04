@@ -37,7 +37,7 @@ export function FinalCTA() {
               <CtaLink href={bookingHref} external>
                 View Live Availability
               </CtaLink>
-              <CtaLink href={siteConfig.instagramUrl} external variant="secondary">
+              <CtaLink href={siteConfig.instagramUrl} external variant="instagram">
                 <InstagramGlyph className="size-4" />
                 Follow {siteConfig.instagramHandle}
               </CtaLink>

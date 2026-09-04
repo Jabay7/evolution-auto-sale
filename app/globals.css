@@ -262,6 +262,23 @@ html[data-js="1"] .reveal[data-revealed="true"] {
   }
 }
 
+/*
+  Instagram's brand gradient, trimmed to its blue-purple-pink half. The orange
+  and yellow stops sit around 2.9:1 against white, which fails on 13px label
+  text; every stop below clears 4.7:1 while still reading unmistakably as
+  Instagram.
+*/
+.instagram-gradient {
+  background-image: linear-gradient(
+    135deg,
+    #405de6 0%,
+    #5851db 20%,
+    #833ab4 45%,
+    #c13584 72%,
+    #d62976 100%
+  );
+}
+
 /* Fine film grain. Keeps large upscaled photographs from looking plasticky. */
 .grain::after {
   content: "";

@@ -21,13 +21,12 @@ export const siteConfig = {
   instagramUrl: "https://www.instagram.com/evo_a12/",
 
   /**
-   * ⚠️  REPLACE THIS with the real external host-profile / live availability URL.
-   *
-   * Until it starts with http(s), every "View Live Availability" button safely
-   * falls back to the Instagram profile instead of shipping a broken link.
-   * See `bookingHref` / `isBookingConfigured` below.
+   * The external host profile every "View Live Availability" control opens.
+   * If this is ever blanked or set to a non-URL, those controls fall back to
+   * the Instagram profile rather than shipping a broken link — see
+   * `bookingHref` / `isBookingConfigured` below.
    */
-  bookingProfileUrl: "BOOKING_PROFILE_URL",
+  bookingProfileUrl: "https://turo.com/us/en/host/33408446",
 
   fleetCount: "60+",
   /** Numeric form of fleetCount, for copy that needs a plain number. */
