@@ -43,7 +43,7 @@ export function Navbar() {
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 border-b transition-[background-color,border-color,backdrop-filter] duration-500 ${
+      className={`hero-veil fixed inset-x-0 top-0 z-50 border-b transition-[opacity,background-color,border-color,backdrop-filter] duration-500 ${
         menuOpen
           ? "border-line bg-bg"
           : scrolled

@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { bookingHref, siteConfig } from "@/config/site";
 import { CtaLink } from "@/components/ui/CtaLink";
+import { HeroIntro } from "@/components/ui/HeroIntro";
 import { StatsStrip } from "@/components/StatsStrip";
 
 const heroPhoto = "/images/hero/evolution-hero.webp";
@@ -23,7 +24,7 @@ export function Hero() {
         aria-hidden="true"
         fill
         sizes="100vw"
-        className="-z-20 scale-110 object-cover blur-2xl brightness-[0.55]"
+        className="-z-20 scale-110 object-cover blur-3xl brightness-[0.32]"
       />
 
       {/* A phone is close enough to the photograph's own shape to crop it
@@ -34,22 +35,35 @@ export function Hero() {
         fill
         priority
         sizes="100vw"
-        className="-z-10 object-cover object-[41%_50%] md:hidden"
+        className="hero-frame -z-10 object-cover object-[41%_50%] md:hidden"
       />
 
       {/* Wider than that, the frame is kept whole in its own aspect-ratio box —
           which is what lets the mask line up with the edges of the photograph
           rather than with the edges of the viewport. */}
-      <div className="absolute inset-y-0 right-[3%] -z-10 hidden aspect-[1100/1559] max-w-[60%] [mask-image:linear-gradient(to_right,transparent,#000_13%,#000_87%,transparent)] md:block lg:right-[14%]">
+      <div className="hero-panel absolute -top-[9%] bottom-[9%] left-1/2 -z-10 hidden aspect-[1100/1279] [mask-image:linear-gradient(to_right,transparent,#000_13%,#000_87%,transparent)] md:block">
         <Image src={heroPhoto} alt={heroAlt} fill sizes="60vw" className="object-cover" />
       </div>
 
-      {/* See .scrim-* in globals.css for how these are weighted. */}
-      <div aria-hidden="true" className="scrim-bottom absolute inset-0 -z-10" />
-      <div aria-hidden="true" className="scrim-left absolute inset-0 -z-10" />
-      <div aria-hidden="true" className="scrim-top absolute inset-x-0 top-0 -z-10 h-36" />
+      <HeroIntro />
 
-      <div className="evo-container relative pb-8">
+      {/* Seen only during the intro: the photograph alone gives no sign that
+          there is anything below it. */}
+      <div aria-hidden="true" className="hero-cue pointer-events-none absolute inset-x-0 bottom-12 z-10">
+        <div className="evo-container flex flex-col gap-4">
+          <span className="label-micro text-ink/70">Scroll</span>
+          <span className="hero-cue-line block h-14 w-px bg-white/45" />
+        </div>
+      </div>
+
+      {/* See .scrim-* in globals.css for how these are weighted. The scrims are
+          part of the veil so that, before it lifts, the photograph is seen
+          undimmed. */}
+      <div aria-hidden="true" className="hero-veil evo-veil-fade scrim-bottom absolute inset-0 -z-10" />
+      <div aria-hidden="true" className="hero-veil evo-veil-fade scrim-left absolute inset-0 -z-10" />
+      <div aria-hidden="true" className="hero-veil evo-veil-fade scrim-top absolute inset-x-0 top-0 -z-10 h-36" />
+
+      <div className="hero-veil evo-veil-fade evo-container relative pb-8">
         <div className="max-w-4xl">
           <p className="eyebrow rise flex items-center gap-4 text-ink/70">
             <span aria-hidden="true" className="block h-px w-10 bg-white/35" />

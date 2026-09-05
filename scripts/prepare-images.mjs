@@ -39,7 +39,6 @@ const FLEET = [
 
 /** Editorial crops. [source, output, width, height, gravity] */
 const CROPS = [
-  ["PICS/Background-2.0.jpg", "hero/evolution-hero.webp", 1100, 1559, "right"],
   ["IMG_1332.png", "hero/final-cta.webp", 1125, 633, "centre"],
   ["IMG_1336.png", "fleet/fleet-lineup.webp", 1125, 546, "centre"],
   ["IMG_1330.png", "oceanside/oceanside-coastal.webp", 900, 1125, "centre"],
@@ -60,8 +59,7 @@ const webp = { quality: 84, effort: 6 };
 
 /* The hero photograph is portrait and stays that way: Hero.tsx fits it whole
    inside the full-viewport section and fills the rest with a blurred copy of
-   itself, so nothing here needs to crop it to a landscape band. The "right"
-   gravity trims 70px off the left edge, where a bystander stands. */
+   itself, so nothing here crops it to a landscape band. See buildHero(). */
 
 /** Vehicle cards never render wider than ~440 CSS px, so 900 covers 2x screens. */
 const CARD_MAX_WIDTH = 900;
@@ -107,6 +105,22 @@ for (const [src, out, w, h, position] of [...CROPS, ...BRAND]) {
   const image = await loadSource(src);
   await write(image.resize({ width: w, height: h, fit: "cover", position }), out);
 }
+
+/**
+ * Hero. An explicit crop rather than a cover-fit, because both edges matter:
+ * 70px off the left, where a bystander stands, and 280px of sky off the top,
+ * which lifts the car towards the middle of the frame and lets it render
+ * larger once the section fits the whole photograph on screen.
+ */
+await write(
+  (await loadSource("PICS/Background-2.0.jpg")).extract({
+    left: 70,
+    top: 280,
+    width: 1100,
+    height: 1279,
+  }),
+  "hero/evolution-hero.webp",
+);
 
 /**
  * Favicon. The same mark, masked to a circle so the corners are transparent —

@@ -141,6 +141,13 @@ docs/                   notes on the images and the brand mark
   rather than an animation library, and is disabled under
   `prefers-reduced-motion`. Content is only hidden when JavaScript is available,
   so the page still reads with scripting off.
+- **Hero intro**: on first load the photograph is shown on its own, and the
+  interface fades in on the first scroll, tap or key press
+  (`components/ui/HeroIntro.tsx`, styles under `.hero-veil` in `globals.css`).
+  It appears on its own after six seconds if nothing happens, it is skipped
+  entirely under `prefers-reduced-motion` or when the page loads part-scrolled,
+  and — like the reveals — nothing is hidden at all without JavaScript. The
+  markup always ships in the HTML, so search engines see the full page.
 - **Structured data** asserts only what has been confirmed: name, city, region,
   Instagram, service area. No phone number, street address, hours, rating or
   review count — those are omitted rather than invented.
