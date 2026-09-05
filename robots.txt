@@ -1,0 +1,5 @@
+User-Agent: *
+Allow: /
+
+Host: https://evolutionautosaleturo.com
+Sitemap: https://evolutionautosaleturo.com/sitemap.xml
