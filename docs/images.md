@@ -9,7 +9,7 @@ Every photograph on the site is served from `/public/images`. Replace a file in 
 
 | Folder       | Used by                          | Suggested aspect |
 | ------------ | -------------------------------- | ---------------- |
-| `hero/`      | Hero background, final CTA band  | ~16:10 landscape |
+| `hero/`      | Hero background, final CTA band  | see note below   |
 | `fleet/`     | Vehicle cards, the 60+ band      | ~3:2 landscape   |
 | `lifestyle/` | Editorial photo break            | mixed, see below |
 | `oceanside/` | Location section                 | 4:5 portrait     |
@@ -17,7 +17,9 @@ Every photograph on the site is served from `/public/images`. Replace a file in 
 
 ## Current files
 
-- `hero/evolution-hero.webp` — full-viewport hero
+- `hero/evolution-hero.webp` — full-viewport hero. Portrait, unusually: the
+  section fits the whole frame and fills the space around it with a blurred
+  copy, so this one is not cropped to a landscape band. Any shape works.
 - `hero/final-cta.webp` — closing call-to-action band
 - `fleet/fleet-lineup.webp` — the wide "60+" scale band
 - `fleet/vehicle-01.webp` … `vehicle-12.webp` — vehicle cards, wired up in `/data/fleet.ts`
@@ -36,7 +38,8 @@ node scripts/prepare-images.mjs
 ```
 
 That converts everything to optimised WebP at the right sizes. Higher-resolution
-originals are worth using where available — the current hero is about 1125px
-wide, which is sharp on phones but soft on a large desktop display.
+originals are worth using where available — the current hero is 1100x1559,
+which is sharp on phones and adequate on a desktop, where it is fitted rather
+than blown up to fill the screen.
 
 Only use photography Evolution Auto Sale owns or is authorised to publish.

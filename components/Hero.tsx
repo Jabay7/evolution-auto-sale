@@ -3,24 +3,46 @@ import { bookingHref, siteConfig } from "@/config/site";
 import { CtaLink } from "@/components/ui/CtaLink";
 import { StatsStrip } from "@/components/StatsStrip";
 
+const heroPhoto = "/images/hero/evolution-hero.webp";
+const heroAlt = "White performance sedan parked on a tree-lined road";
+
 export function Hero() {
   return (
     <section id="top" className="grain relative isolate flex min-h-[100svh] flex-col justify-end overflow-hidden pt-24">
       {/*
-        Hero photograph. The current source is 596px wide, well under what a
-        full-viewport hero wants; replace
-        /public/images/hero/evolution-hero.webp with a higher-resolution
-        authorised photograph when one is available. The framing below is tuned
-        to keep the vehicle in shot on portrait phones.
+        The photograph is portrait but this section is full-viewport, so on a
+        wide screen object-cover would scale it up until only a band of it
+        survived — a close-up of one headlight. Instead the whole frame is kept
+        and the space around it is filled with a blurred, darkened copy of the
+        same file, feathered at the edges so there is no seam between them.
+        One src throughout, so it is still a single request.
       */}
       <Image
-        src="/images/hero/evolution-hero.webp"
-        alt="White performance sedan parked on an open coastal road at sunset"
+        src={heroPhoto}
+        alt=""
+        aria-hidden="true"
+        fill
+        sizes="100vw"
+        className="-z-20 scale-110 object-cover blur-2xl brightness-[0.55]"
+      />
+
+      {/* A phone is close enough to the photograph's own shape to crop it
+          directly, and the blurred layer never shows through. */}
+      <Image
+        src={heroPhoto}
+        alt={heroAlt}
         fill
         priority
         sizes="100vw"
-        className="-z-10 object-cover object-[58%_62%] md:object-[58%_50%]"
+        className="-z-10 object-cover object-[41%_50%] md:hidden"
       />
+
+      {/* Wider than that, the frame is kept whole in its own aspect-ratio box —
+          which is what lets the mask line up with the edges of the photograph
+          rather than with the edges of the viewport. */}
+      <div className="absolute inset-y-0 right-[3%] -z-10 hidden aspect-[1100/1559] max-w-[60%] [mask-image:linear-gradient(to_right,transparent,#000_13%,#000_87%,transparent)] md:block lg:right-[14%]">
+        <Image src={heroPhoto} alt={heroAlt} fill sizes="60vw" className="object-cover" />
+      </div>
 
       {/* See .scrim-* in globals.css for how these are weighted. */}
       <div aria-hidden="true" className="scrim-bottom absolute inset-0 -z-10" />
