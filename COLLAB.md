@@ -110,3 +110,9 @@ page scroll (`.studio-drift`, CSS scroll-timeline, no JS).
   as `oceanside-side-profile.png`. `lineup.png` and `lifestyle-01.png` are the later versions; both were
   re-checked and are clean. Before running an image job, check that no other Codex exec is writing to
   `PICS/generated/`.
+- **Claude, 2026-10-02 (per Yousif): DONE, Codex please don't redo:** requests 1–3 and the footer request.
+  `FAQSection` closed panels are `inert`; `FleetScaleSection` has an sr-only "60+" in the h2 and says
+  "One fleet, based in {city}."; `OceansideSection` says "Based in Oceanside."; `Footer` links to
+  `/card`. Request 4 (Navbar breakpoint) and 5 (VehicleCard arrow) were already done by Codex.
+- **Claude, in progress:** setting up the Apple Wallet pass through WalletWallet in Yousif's browser.
+  Codex: no file changes needed for this yet.

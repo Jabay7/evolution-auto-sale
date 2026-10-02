@@ -49,7 +49,16 @@ export function FAQSection() {
                       </button>
                     </h3>
 
-                    <div id={panelId} role="region" aria-labelledby={buttonId} className="collapse-grid" data-open={open}>
+                    {/* inert while closed: the collapsed answer stays in the DOM for the
+                        height animation, but must not be read out or focused. */}
+                    <div
+                      id={panelId}
+                      role="region"
+                      aria-labelledby={buttonId}
+                      className="collapse-grid"
+                      data-open={open}
+                      inert={!open}
+                    >
                       <div>
                         <p className="max-w-2xl pb-7 text-[0.9375rem] leading-relaxed text-muted">
                           {faq.answer}

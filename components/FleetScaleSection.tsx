@@ -31,6 +31,9 @@ export function FleetScaleSection() {
           <div className="lg:col-span-6 lg:pb-4">
             <Reveal delay={120}>
               <h2 id="scale-heading" className="display display-lg uppercase tracking-[-0.01em]">
+                {/* The numeral beside this is decorative; this is what a screen
+                    reader hears in its place. */}
+                <span className="sr-only">{siteConfig.fleetCount} </span>
                 Vehicles and
                 <br />
                 counting
@@ -38,8 +41,7 @@ export function FleetScaleSection() {
             </Reveal>
             <Reveal delay={200}>
               <p className="body-lead mt-6 max-w-md text-ink/70">
-                More choices. More flexibility. One professionally managed fleet in{" "}
-                {siteConfig.city}.
+                More choices. More flexibility. One fleet, based in {siteConfig.city}.
               </p>
             </Reveal>
           </div>

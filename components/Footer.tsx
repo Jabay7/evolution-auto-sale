@@ -17,6 +17,7 @@ const columns = [
     links: [
       { label: siteConfig.instagramHandle, href: siteConfig.instagramUrl, external: true },
       { label: "Live Availability", href: bookingHref, external: true },
+      { label: "Digital Card", href: "/card" },
     ],
   },
 ];

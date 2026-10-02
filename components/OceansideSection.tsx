@@ -30,7 +30,7 @@ export function OceansideSection() {
             </Reveal>
             <Reveal delay={80}>
               <h2 className="display display-xl mt-6">
-                Born in Oceanside.
+                Based in Oceanside.
                 <br />
                 Built for Southern California.
               </h2>
