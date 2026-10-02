@@ -1,13 +1,11 @@
 "use client";
 
 import { useState, type ReactNode } from "react";
-import { activeCategories, type Vehicle, type VehicleCategory } from "@/data/fleet";
+import { CATEGORY_ORDER, type Vehicle, type VehicleCategory } from "@/data/fleet";
 import { VehicleCard } from "@/components/VehicleCard";
 import { Reveal } from "@/components/ui/Reveal";
 
 type Filter = VehicleCategory | "All";
-
-const filters: Filter[] = ["All", ...activeCategories];
 
 /**
  * Filters are rendered from the categories that actually exist in the fleet
@@ -19,11 +17,13 @@ const filters: Filter[] = ["All", ...activeCategories];
  */
 export function FleetGrid({ vehicles, note }: { vehicles: Vehicle[]; note?: ReactNode }) {
   const [active, setActive] = useState<Filter>("All");
+  const filters: Filter[] = ["All", ...CATEGORY_ORDER.filter((category) => vehicles.some((vehicle) => vehicle.category === category))];
   const showFilters = filters.length > 2;
+  const visibleCount = vehicles.filter((vehicle) => active === "All" || vehicle.category === active).length;
 
   return (
     <>
-      <div className="mt-16 flex flex-col gap-8 border-t border-line pt-10 md:flex-row md:items-center md:justify-between">
+      <div className="mt-10 flex flex-col gap-6 border-t border-line pt-6 lg:mt-12 lg:flex-row lg:items-center lg:justify-between">
         {note ? (
           <Reveal>
             <p className="max-w-md text-sm leading-relaxed text-muted">{note}</p>
@@ -43,13 +43,17 @@ export function FleetGrid({ vehicles, note }: { vehicles: Vehicle[]; note?: Reac
                     type="button"
                     aria-pressed={isActive}
                     onClick={() => setActive(filter)}
-                    className={`label-micro min-h-10 rounded-full border px-5 py-2.5 transition-colors duration-300 ${
+                    aria-controls="fleet-vehicles"
+                    className={`label-micro flex min-h-11 items-center gap-3 rounded-full border px-5 py-2.5 transition-colors duration-300 ${
                       isActive
                         ? "border-transparent bg-ink text-bg"
                         : "border-line text-muted hover:border-line-strong hover:text-ink"
                     }`}
                   >
                     {filter}
+                    <span aria-hidden="true" className="tabular-nums">
+                      {filter === "All" ? vehicles.length : vehicles.filter((vehicle) => vehicle.category === filter).length}
+                    </span>
                   </button>
                 );
               })}
@@ -58,7 +62,12 @@ export function FleetGrid({ vehicles, note }: { vehicles: Vehicle[]; note?: Reac
         ) : null}
       </div>
 
-      <div className="mt-14 grid gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
+      <p role="status" aria-live="polite" aria-atomic="true" className="label-micro mt-8 text-muted">
+        {visibleCount} featured {visibleCount === 1 ? "vehicle" : "vehicles"}
+        {active !== "All" ? ` · ${active}` : ""}
+      </p>
+
+      <div id="fleet-vehicles" className="mt-5 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 lg:gap-6">
         {vehicles.map((vehicle, index) => {
           const visible = active === "All" || vehicle.category === active;
           return (

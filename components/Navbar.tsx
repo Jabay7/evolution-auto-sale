@@ -34,9 +34,29 @@ export function Navbar() {
 
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") closeMenu();
+      if (event.key === "Tab") {
+        const links = panelRef.current?.querySelectorAll<HTMLAnchorElement>("a");
+        const first = toggleRef.current;
+        const last = links?.[links.length - 1];
+        if (event.shiftKey && document.activeElement === first && last) {
+          event.preventDefault();
+          last.focus();
+        } else if (!event.shiftKey && document.activeElement === last && first) {
+          event.preventDefault();
+          first.focus();
+        }
+      }
     };
+    const desktop = window.matchMedia("(min-width: 1024px)");
+    const onResize = () => {
+      if (desktop.matches) setMenuOpen(false);
+    };
+    desktop.addEventListener("change", onResize);
     window.addEventListener("keydown", onKeyDown);
-    return () => window.removeEventListener("keydown", onKeyDown);
+    return () => {
+      desktop.removeEventListener("change", onResize);
+      window.removeEventListener("keydown", onKeyDown);
+    };
   }, [menuOpen, closeMenu]);
 
   useEffect(() => () => { delete document.body.dataset.menuOpen; }, []);
@@ -67,7 +87,7 @@ export function Navbar() {
               <li key={link.href}>
                 <a
                   href={link.href}
-                  className="text-[0.8125rem] tracking-[0.02em] text-muted transition-colors duration-300 hover:text-ink"
+                  className="nav-link py-3 text-[0.8125rem] tracking-[0.02em] text-muted transition-colors duration-300 hover:text-ink"
                 >
                   {link.label}
                 </a>
@@ -103,15 +123,16 @@ export function Navbar() {
         hidden={!menuOpen}
         className="border-t border-line bg-bg lg:hidden"
       >
-        <nav aria-label="Mobile" className="evo-container flex h-[calc(100svh-5rem)] flex-col justify-between py-10">
+        <nav aria-label="Mobile" className="evo-container flex h-[calc(100svh-5rem)] flex-col justify-between gap-8 overflow-y-auto py-8">
           <ul className="flex flex-col gap-1">
-            {navLinks.map((link) => (
+            {navLinks.map((link, index) => (
               <li key={link.href}>
                 <a
                   href={link.href}
                   onClick={closeMenu}
-                  className="display display-lg block py-3 text-ink/90 transition-colors duration-300 hover:text-ink"
+                  className="display display-lg flex items-center gap-5 border-b border-line py-4 text-ink/90 transition-colors duration-300 hover:text-accent"
                 >
+                  <span aria-hidden="true" className="label-micro text-accent">{String(index + 1).padStart(2, "0")}</span>
                   {link.label}
                 </a>
               </li>

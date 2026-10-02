@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { bookingHref, siteConfig } from "@/config/site";
 import { CtaLink } from "@/components/ui/CtaLink";
 import { InstagramGlyph } from "@/components/ui/InstagramGlyph";
@@ -8,18 +7,10 @@ export function FinalCTA() {
   return (
     <section
       aria-labelledby="cta-heading"
-      className="grain relative isolate flex min-h-[520px] items-center overflow-hidden border-t border-line py-24 md:min-h-[620px]"
+      className="studio-window relative isolate flex min-h-[100svh] items-center overflow-hidden border-t border-line py-24"
     >
-      <Image
-        src="/images/hero/final-cta.webp"
-        alt="White Kia K4 sedan from the Evolution Auto Sale fleet parked in Oceanside, California"
-        fill
-        loading="lazy"
-        sizes="100vw"
-        className="-z-10 object-cover object-[55%_45%]"
-      />
-      <div aria-hidden="true" className="absolute inset-0 -z-10 bg-gradient-to-t from-bg via-bg/85 to-bg/55" />
-
+      {/* No photograph of its own: the closing band is the last window onto the
+          studio backdrop, so the page ends on the same car it opened with. */}
       <div className="evo-container relative">
         <div className="max-w-2xl">
           <Reveal>

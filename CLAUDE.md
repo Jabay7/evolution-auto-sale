@@ -4,6 +4,15 @@ Promotional showcase site for a 60+ vehicle specialty rental fleet in Oceanside,
 California. Next.js App Router + TypeScript + Tailwind v4. See `README.md` for
 setup and editing instructions.
 
+## Collaboration
+
+- Codex and Claude Code collaborate on this project. Ask Claude Code for
+  routine project approvals, design sign-off, and implementation reviews.
+- Preserve work already in progress and agree on file ownership before
+  delegating edits. A read-only review can run alongside implementation.
+- Sandbox permission prompts and other approvals required from the user
+  still go to the user; another agent cannot grant those permissions.
+
 ## Hard rules
 
 - **No customer data, ever.** No forms, inputs, accounts, date pickers, payment

@@ -8,24 +8,24 @@ import { Reveal } from "@/components/ui/Reveal";
 const shots = [
   {
     src: "/images/lifestyle/lifestyle-01.webp",
-    alt: "White Kia K4 sedan from the Evolution Auto Sale fleet",
+    alt: "White Kia K4 sedan from the Evolution Auto Sale fleet, rendered in a dark studio",
     sizes: "(min-width: 768px) 58vw, 92vw",
   },
   {
     src: "/images/lifestyle/lifestyle-02.webp",
-    alt: "Grey Kia Telluride SUV parked on a quiet residential street",
+    alt: "Grey Kia Telluride SUV on a coastal road at dusk, headlights on",
     sizes: "(min-width: 768px) 40vw, 92vw",
   },
   {
     src: "/images/lifestyle/lifestyle-03.webp",
-    alt: "Silver Hyundai Kona compact SUV in a North County San Diego parking lot",
+    alt: "Silver Hyundai Kona compact SUV with black cladding, rendered in a dark studio",
     sizes: "(min-width: 768px) 40vw, 92vw",
   },
 ];
 
 export function GallerySection() {
   return (
-    <section aria-label="Fleet photography" className="evo-section border-t border-line">
+    <section aria-label="Fleet photography" className="evo-section border-t border-line bg-bg">
       <div className="evo-container">
         <div className="grid gap-4 md:grid-cols-12">
           <Reveal className="md:col-span-7 md:row-span-2">
@@ -61,7 +61,7 @@ export function GallerySection() {
           <div className="relative mt-4 aspect-[21/9] overflow-hidden border border-line bg-card">
             <Image
               src="/images/lifestyle/lifestyle-04.webp"
-              alt="Chevrolet Equinox SUV from the Evolution Auto Sale rental fleet"
+              alt="Dark grey Chevrolet Equinox SUV on a winding coastal road at dusk"
               fill
               loading="lazy"
               sizes="100vw"

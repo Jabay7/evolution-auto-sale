@@ -15,7 +15,7 @@
  * /data/fleet.ts.
  */
 import sharp from "sharp";
-import { mkdir, readFile } from "node:fs/promises";
+import { access, mkdir, readFile } from "node:fs/promises";
 import path from "node:path";
 
 const SRC = "PICS/cropped";
@@ -39,7 +39,6 @@ const FLEET = [
 
 /** Editorial crops. [source, output, width, height, gravity] */
 const CROPS = [
-  ["IMG_1332.png", "hero/final-cta.webp", 1125, 633, "centre"],
   ["IMG_1336.png", "fleet/fleet-lineup.webp", 1125, 546, "centre"],
   ["IMG_1330.png", "oceanside/oceanside-coastal.webp", 900, 1125, "centre"],
   ["IMG_1325.png", "lifestyle/lifestyle-01.webp", 860, 1125, "centre"],
@@ -49,6 +48,26 @@ const CROPS = [
 ];
 
 /**
+ * Editorial re-photographs of the same fleet vehicles, generated from the
+ * phone snapshots above (see COLLAB.md). Where one exists in PICS/generated it
+ * replaces the snapshot for that crop, exported at the largest size the
+ * source allows in the crop's aspect ratio rather than at the snapshot's size.
+ * They show no plate, so nothing is blurred. Delete a file to fall back.
+ */
+const GENERATED_DIR = "PICS/generated";
+const GENERATED = {
+  "fleet/fleet-lineup.webp": "lineup.png",
+  "oceanside/oceanside-coastal.webp": "oceanside.png",
+  "lifestyle/lifestyle-01.webp": "lifestyle-01.png",
+  "lifestyle/lifestyle-02.webp": "lifestyle-02.png",
+  "lifestyle/lifestyle-03.webp": "lifestyle-03.png",
+  "lifestyle/lifestyle-04.webp": "lifestyle-04.png",
+};
+
+/** Full-bleed bands render at 100vw, so allow these to go wider than the cards. */
+const EDITORIAL_MAX_WIDTH = 2400;
+
+/**
  * Brand mark: the square profile photograph, rendered as a circle in the
  * header. Exported at its native 150px, which keeps the 48px mark sharp on a
  * 3x screen. Supply a larger original before rendering it any bigger.
@@ -56,10 +75,6 @@ const CROPS = [
 const BRAND = [["PICS/evo-x.jpg", "brand/mark.webp", 150, 150, "centre"]];
 
 const webp = { quality: 84, effort: 6 };
-
-/* The hero photograph is portrait and stays that way: Hero.tsx fits it whole
-   inside the full-viewport section and fills the rest with a blurred copy of
-   itself, so nothing here crops it to a landscape band. See buildHero(). */
 
 /** Vehicle cards never render wider than ~440 CSS px, so 900 covers 2x screens. */
 const CARD_MAX_WIDTH = 900;
@@ -101,26 +116,52 @@ for (const [src, out] of FLEET) {
   const image = await loadSource(src);
   await write(image.resize({ width: CARD_MAX_WIDTH, withoutEnlargement: true }), out);
 }
+const exists = (file) => access(file).then(() => true, () => false);
+
 for (const [src, out, w, h, position] of [...CROPS, ...BRAND]) {
+  const generated = GENERATED[out] && path.join(GENERATED_DIR, GENERATED[out]);
+  if (generated && (await exists(generated))) {
+    /* Largest crop of the target aspect that fits inside the source. */
+    const meta = await sharp(generated).metadata();
+    const scale = Math.min(meta.width / w, meta.height / h, EDITORIAL_MAX_WIDTH / w);
+    const size = { width: Math.round(w * scale), height: Math.round(h * scale) };
+    await write(sharp(generated).resize({ ...size, fit: "cover", position: "centre" }), out);
+    continue;
+  }
   const image = await loadSource(src);
   await write(image.resize({ width: w, height: h, fit: "cover", position }), out);
 }
 
 /**
- * Hero. An explicit crop rather than a cover-fit, because both edges matter:
- * 70px off the left, where a bystander stands, and 280px of sky off the top,
- * which lifts the car towards the middle of the frame and lets it render
- * larger once the section fits the whole photograph on screen.
+ * Studio backdrop. The brand photograph of the Evo X on a dark seamless,
+ * fixed behind the whole page by components/StudioBackdrop.tsx. Kept at its
+ * native size and uncropped: the backdrop fades its edges into the page
+ * background in CSS, so the seamless itself is what fills a wide screen.
  */
-await write(
-  (await loadSource("PICS/Background-2.0.jpg")).extract({
-    left: 70,
-    top: 280,
-    width: 1100,
-    height: 1279,
-  }),
-  "hero/evolution-hero.webp",
+await write(await loadSource("PICS/Logo-3D.png"), "brand/studio.webp");
+
+/* The same photograph for the social card. A JPEG, because the renderer behind
+   app/opengraph-image.tsx cannot decode WebP; kept in a private app folder so
+   it is read at build time but never published. The fade into the card's
+   background is baked in, because that renderer does not reliably draw a
+   gradient over an image. */
+const OG_W = 840;
+const OG_H = 630;
+const ogFade = Buffer.from(
+  `<svg width="${OG_W}" height="${OG_H}"><defs>` +
+    `<linearGradient id="l" x1="0" x2="1"><stop offset="0" stop-color="#0a0a0a"/>` +
+    `<stop offset="0.12" stop-color="#0a0a0a" stop-opacity="0.85"/>` +
+    `<stop offset="0.4" stop-color="#0a0a0a" stop-opacity="0"/></linearGradient>` +
+    `<linearGradient id="b" x1="0" x2="0" y1="0" y2="1"><stop offset="0.7" stop-color="#0a0a0a" stop-opacity="0"/>` +
+    `<stop offset="1" stop-color="#0a0a0a" stop-opacity="0.9"/></linearGradient></defs>` +
+    `<rect width="100%" height="100%" fill="url(#l)"/><rect width="100%" height="100%" fill="url(#b)"/></svg>`,
 );
+const og = await (await loadSource("PICS/Logo-3D.png"))
+  .resize(OG_W, OG_H, { fit: "cover", position: "top" })
+  .composite([{ input: ogFade }])
+  .jpeg({ quality: 82, mozjpeg: true })
+  .toFile("app/_assets/og-studio.jpg");
+console.log(`${"app/_assets/og-studio.jpg".padEnd(40)} ${og.width}x${og.height}  ${Math.round(og.size / 1024)}KB`);
 
 /**
  * Favicon. The same mark, masked to a circle so the corners are transparent —

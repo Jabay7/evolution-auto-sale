@@ -42,3 +42,6 @@ next-env.d.ts
 
 # Source photography (large originals; optimised WebP lives in public/images)
 /PICS
+
+# Apple Wallet signing certificates (scripts/build-wallet-pass.mjs)
+/certs/

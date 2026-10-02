@@ -6,13 +6,13 @@ export function FleetScaleSection() {
   return (
     <section
       aria-labelledby="scale-heading"
-      className="grain relative isolate flex min-h-[560px] items-end overflow-hidden border-t border-line py-20 md:min-h-[680px] md:py-24"
+      className="grain relative isolate flex min-h-[560px] items-end overflow-hidden border-t border-line bg-bg py-20 md:min-h-[680px] md:py-24"
     >
       {/* Wide fleet photograph — replace /public/images/fleet/fleet-lineup.webp
           with a lineup shot showing several vehicles together. */}
       <Image
         src="/images/fleet/fleet-lineup.webp"
-        alt="Vehicle from the Evolution Auto Sale fleet photographed on a Southern California street"
+        alt="White Nissan Altima SR from the Evolution Auto Sale fleet, rendered in a dark studio"
         fill
         loading="lazy"
         sizes="100vw"

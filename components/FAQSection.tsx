@@ -11,7 +11,7 @@ export function FAQSection() {
   const baseId = useId();
 
   return (
-    <section aria-labelledby="faq-heading" className="evo-section border-t border-line">
+    <section aria-labelledby="faq-heading" className="evo-section border-t border-line bg-bg">
       <div className="evo-container">
         <div className="grid gap-14 lg:grid-cols-12 lg:gap-20">
           <div className="lg:col-span-4">

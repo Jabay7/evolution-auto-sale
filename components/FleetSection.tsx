@@ -7,7 +7,7 @@ import { SectionIntro } from "@/components/ui/SectionIntro";
 
 export function FleetSection() {
   return (
-    <section id="fleet" className="evo-section border-t border-line">
+    <section id="fleet" className="evo-section border-t border-line bg-bg">
       <div className="evo-container">
         <SectionIntro eyebrow="The Fleet" heading="A Fleet Built for Every Drive.">
           From everyday transportation to vehicles made for the weekend,{" "}

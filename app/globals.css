@@ -14,11 +14,11 @@
   --evo-muted: #a7a7a2;
   --evo-line: rgba(255, 255, 255, 0.1);
   --evo-line-strong: rgba(255, 255, 255, 0.22);
-  --evo-accent: #3b82f6;
+  --evo-accent: #d8c5a3;
 
   /* Layout rhythm */
   --evo-gutter: clamp(1.25rem, 4vw, 4rem);
-  --evo-section: clamp(5.5rem, 11vw, 9.5rem);
+  --evo-section: clamp(4.5rem, 9vw, 8rem);
   --evo-max: 1440px;
 
   color-scheme: dark;
@@ -67,7 +67,6 @@ body {
 :focus-visible {
   outline: 2px solid var(--evo-accent);
   outline-offset: 3px;
-  border-radius: 2px;
 }
 
 /* Locks the page while the mobile menu is open. */
@@ -102,10 +101,10 @@ body[data-menu-open="true"] {
   text-wrap: balance;
 }
 
-/* Scales with the shorter viewport dimension so a three-line headline still
+/* Scales with the shorter viewport dimension so the two-line headline still
    clears the fold on a 13" laptop. */
 .display-hero {
-  font-size: clamp(2.6rem, min(6.6vw, 9.2vh), 5.75rem);
+  font-size: clamp(3.1rem, min(7.5vw, 11vh), 6.75rem);
   line-height: 0.95;
   letter-spacing: -0.035em;
 }
@@ -127,17 +126,17 @@ body[data-menu-open="true"] {
 }
 
 .eyebrow {
-  font-size: 0.6875rem;
+  font-size: 0.75rem;
   font-weight: 500;
-  letter-spacing: 0.28em;
+  letter-spacing: 0.24em;
   text-transform: uppercase;
   color: var(--evo-muted);
 }
 
 .label-micro {
-  font-size: 0.625rem;
+  font-size: 0.6875rem;
   font-weight: 500;
-  letter-spacing: 0.22em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
 }
 
@@ -146,6 +145,50 @@ body[data-menu-open="true"] {
   line-height: 1.7;
   color: var(--evo-muted);
   text-wrap: pretty;
+}
+
+/* Keep the car and the headline legible as separate elements on a phone. */
+.hero-content {
+  padding-top: 5rem;
+}
+
+.nav-link {
+  position: relative;
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  height: 1px;
+  background: var(--evo-accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.25s ease;
+}
+
+.nav-link:hover::after,
+.nav-link:focus-visible::after {
+  transform: scaleX(1);
+}
+
+@media (max-width: 767px) {
+  .hero-content {
+    /* Photo: 11svh from the top, 4:3 aspect ratio. Subtract the section's
+       6rem top padding, then leave a clear gap after the image. */
+    padding-top: calc(11svh + 75vw - 6rem + 1.5rem);
+  }
+
+  .hero-section .scrim-bottom {
+    background-image: linear-gradient(
+      to bottom,
+      transparent 0%,
+      transparent 13rem,
+      color-mix(in srgb, var(--evo-bg) 90%, transparent) 22rem,
+      var(--evo-bg) 28rem
+    );
+  }
 }
 
 /* ==========================================================================
@@ -359,6 +402,122 @@ html[data-js="1"]:not([data-hero-entered="1"]) .rise {
     color-mix(in srgb, var(--evo-bg) 78%, transparent),
     transparent
   );
+}
+
+/*
+  Studio backdrop — see components/StudioBackdrop.tsx.
+
+  The photograph's seamless is a mid charcoal and the page is near black, so
+  every edge is feathered out with a mask rather than butted against the page.
+  Two gradients intersected give a soft rectangle that follows the frame.
+*/
+.studio-mask {
+  -webkit-mask-image:
+    linear-gradient(to right, transparent, #000 16%, #000 84%, transparent),
+    linear-gradient(to bottom, transparent, #000 7%, #000 78%, transparent);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    linear-gradient(to right, transparent, #000 16%, #000 84%, transparent),
+    linear-gradient(to bottom, transparent, #000 7%, #000 78%, transparent);
+  mask-composite: intersect;
+}
+
+/* Pulls the seamless down towards the page so the car, not the studio, is what
+   reads; the white paint survives a 0.86 brightness without going grey. The
+   desaturation quiets the red sponsor decals so the bodywork leads. */
+.studio-image {
+  filter: brightness(0.86) contrast(1.06) saturate(0.55);
+}
+
+/* Settles the lit floor and the corners into the page. */
+.studio-vignette {
+  background-image:
+    radial-gradient(
+      ellipse 70% 75% at 62% 46%,
+      transparent 45%,
+      color-mix(in srgb, var(--evo-bg) 55%, transparent) 75%,
+      var(--evo-bg) 100%
+    ),
+    linear-gradient(to top, var(--evo-bg), transparent 26%);
+}
+
+/*
+  A section that opens onto the backdrop. Its own top and bottom fade from the
+  page colour so there is never a hard edge where the car appears, and the
+  left side is weighted for the type the way .scrim-left is.
+*/
+.studio-window {
+  background-image:
+    linear-gradient(
+      to bottom,
+      var(--evo-bg) 0%,
+      transparent 24%,
+      transparent 76%,
+      var(--evo-bg) 100%
+    ),
+    linear-gradient(
+      to right,
+      color-mix(in srgb, var(--evo-bg) 94%, transparent) 0%,
+      color-mix(in srgb, var(--evo-bg) 80%, transparent) 40%,
+      color-mix(in srgb, var(--evo-bg) 25%, transparent) 72%,
+      color-mix(in srgb, var(--evo-bg) 40%, transparent) 100%
+    );
+}
+
+/* A pane of smoked glass over the backdrop rather than a window onto it. */
+.studio-glass {
+  background-color: color-mix(in srgb, var(--evo-elevated) 82%, transparent);
+  -webkit-backdrop-filter: blur(28px) saturate(1.1);
+  backdrop-filter: blur(28px) saturate(1.1);
+}
+
+/*
+  The car pushes in slowly over the length of the page, so it never sits
+  exactly the same way twice. Scroll-driven, so it costs no JavaScript;
+  browsers without animation-timeline simply keep it still.
+*/
+@keyframes evo-drift {
+  from {
+    transform: none;
+    opacity: 1;
+  }
+  to {
+    transform: scale(1.1);
+    opacity: 0.8;
+  }
+}
+
+@supports (animation-timeline: scroll()) {
+  .studio-drift {
+    transform-origin: 62% 50%;
+    animation: evo-drift linear both;
+    animation-timeline: scroll(root);
+  }
+}
+
+@media (max-width: 767px) {
+  .studio-window {
+    background-image:
+      linear-gradient(
+        to bottom,
+        var(--evo-bg) 0%,
+        color-mix(in srgb, var(--evo-bg) 74%, transparent) 22%,
+        color-mix(in srgb, var(--evo-bg) 74%, transparent) 70%,
+        var(--evo-bg) 100%
+      );
+  }
+
+  .studio-vignette {
+    background-image:
+      radial-gradient(ellipse 90% 45% at 50% 32%, transparent 50%, var(--evo-bg) 100%),
+      linear-gradient(to top, var(--evo-bg) 40%, transparent 62%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .studio-drift {
+    animation: none;
+  }
 }
 
 @media (max-width: 767px) {

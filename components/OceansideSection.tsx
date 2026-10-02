@@ -6,7 +6,7 @@ const places = ["Oceanside", "North County", "San Diego County", "Southern Calif
 
 export function OceansideSection() {
   return (
-    <section id="oceanside" className="evo-section border-t border-line">
+    <section id="oceanside" className="evo-section border-t border-line bg-bg">
       <div className="evo-container">
         <div className="grid items-center gap-12 lg:grid-cols-12 lg:gap-20">
           <Reveal className="lg:col-span-6">
@@ -15,7 +15,7 @@ export function OceansideSection() {
             <div className="relative aspect-[4/5] overflow-hidden border border-line bg-card">
               <Image
                 src="/images/oceanside/oceanside-coastal.webp"
-                alt="Sedan from the Evolution Auto Sale fleet on a palm-lined street in Oceanside, California"
+                alt="Graphite Hyundai Elantra from the Evolution Auto Sale fleet on a palm-lined coastal road at sunset"
                 fill
                 loading="lazy"
                 sizes="(min-width: 1024px) 46vw, 92vw"

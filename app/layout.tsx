@@ -90,7 +90,15 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" data-scroll-behavior="smooth" className={`${archivo.variable} ${inter.variable}`}>
+    <html
+      lang="en"
+      data-scroll-behavior="smooth"
+      /* The inline script below sets data-js before hydration, and HeroIntro
+         sets data-hero-entered — both deliberately differ from the server
+         render, so React should not warn about the root's attributes. */
+      suppressHydrationWarning
+      className={`${archivo.variable} ${inter.variable}`}
+    >
       <body className="bg-bg text-ink antialiased">
         <meta httpEquiv="Content-Security-Policy" content={contentSecurityPolicy} />
         {/*

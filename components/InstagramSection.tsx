@@ -10,7 +10,8 @@ import { Reveal } from "@/components/ui/Reveal";
  */
 const grid = [
   { src: "/images/fleet/vehicle-03.webp", alt: "Black Hyundai Elantra sedan from the fleet" },
-  { src: "/images/fleet/vehicle-05.webp", alt: "White Nissan Altima SR sedan from the fleet" },
+  /* The square tile crops most fleet photographs; this one keeps the whole car. */
+  { src: "/images/fleet/vehicle-09.webp", alt: "White Kia K4 sedan from the fleet" },
   { src: "/images/fleet/vehicle-07.webp", alt: "Silver Kia Forte sedan from the fleet" },
   { src: "/images/fleet/vehicle-12.webp", alt: "Black Kia K4 sedan from the fleet" },
 ];

@@ -11,11 +11,13 @@ import { FAQSection } from "@/components/FAQSection";
 import { FinalCTA } from "@/components/FinalCTA";
 import { Footer } from "@/components/Footer";
 import { StructuredData } from "@/components/StructuredData";
+import { StudioBackdrop } from "@/components/StudioBackdrop";
 
 export default function HomePage() {
   return (
     <>
       <StructuredData />
+      <StudioBackdrop />
       <Navbar />
       <main>
         <Hero />

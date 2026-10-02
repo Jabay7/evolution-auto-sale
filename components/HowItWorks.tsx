@@ -13,7 +13,7 @@ const steps = [
 
 export function HowItWorks() {
   return (
-    <section id="experience" className="evo-section border-t border-line bg-elevated">
+    <section id="experience" className="evo-section studio-glass border-t border-line">
       <div className="evo-container">
         <SectionIntro eyebrow="The Experience" heading="Your Next Drive, Made Simple." layout="stacked" />
 
