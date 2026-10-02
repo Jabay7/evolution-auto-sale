@@ -32,12 +32,12 @@ export function OceansideSection() {
               <h2 className="display display-xl mt-6">
                 Based in Oceanside.
                 <br />
-                Built for Southern California.
+                Ready for the Coast.
               </h2>
             </Reveal>
             <Reveal delay={160}>
               <p className="body-lead mt-8 max-w-lg">
-                Based in {siteConfig.city}, {siteConfig.businessName} puts you in the heart of{" "}
+                From {siteConfig.city}, {siteConfig.businessName} puts you in the heart of{" "}
                 {siteConfig.area} — with the coast, San Diego, Orange County and countless Southern
                 California drives within reach.
               </p>

@@ -1,4 +1,4 @@
-import { siteConfig } from "@/config/site";
+import { bookingHref, siteConfig } from "@/config/site";
 
 type Stat = {
   value: string;
@@ -9,7 +9,9 @@ type Stat = {
 const stats: Stat[] = [
   { value: siteConfig.fleetCount, label: "Vehicles" },
   { value: siteConfig.city, label: siteConfig.regionName },
-  { value: "Specialty", label: "Rentals" },
+  /* Named at the owner's request (2026-10-02): links to the host profile where
+     bookings happen. Text only, so no marketplace logo or colours. */
+  { value: "Explore", label: "Turo", href: bookingHref },
   { value: siteConfig.instagramHandle, label: "Instagram", href: siteConfig.instagramUrl },
 ];
 

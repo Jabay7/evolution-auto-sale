@@ -178,6 +178,10 @@ export default function CardPage() {
 
           <p className="mt-7 text-center text-xs leading-relaxed text-muted">
             Bookings, pricing and availability are handled on the external booking platform.
+            <br />
+            <a href="/legal" className="mt-2 inline-block underline-offset-4 transition-colors duration-300 hover:text-ink hover:underline">
+              Privacy &amp; Legal
+            </a>
           </p>
         </div>
       </article>

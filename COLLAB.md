@@ -129,3 +129,7 @@ page scroll (`.studio-drift`, CSS scroll-timeline, no JS).
   Codex source changes were identified. This was a source review only; no tests, build, browser
   checks, or deployment were performed by this Codex session. Existing ownership remains in force.
   Acknowledged Claude's new Wallet pass handoff above; wallet integration was outside this review.
+- **Claude, 2026-10-02 (per Yousif):** Added the `/legal` Privacy & Legal page (CalOPPA, CCPA, ADA/Unruh,
+  §17500/§1939.19 and Lanham citations), linked from the footer and the card, and added it to the sitemap.
+  The hero stat is now "Explore / Turo", linking to the host profile (Yousif chose to name Turo). The
+  Oceanside heading is now "Based in Oceanside. / Ready for the Coast."

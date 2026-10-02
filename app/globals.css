@@ -611,3 +611,51 @@ html[data-js="1"]:not([data-hero-entered="1"]) .rise {
     transition: none;
   }
 }
+
+/* ==========================================================================
+   Legal page (app/legal/page.tsx): plain-language prose.
+   ========================================================================== */
+
+.legal-prose h3 {
+  margin-top: 1.75rem;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--evo-text);
+}
+
+.legal-prose h3:first-child {
+  margin-top: 0;
+}
+
+.legal-prose p {
+  margin-top: 0.5rem;
+  font-size: 0.9375rem;
+  line-height: 1.75;
+  color: var(--evo-muted);
+  text-wrap: pretty;
+}
+
+.legal-prose p + p {
+  margin-top: 1rem;
+}
+
+.legal-prose a {
+  color: var(--evo-text);
+  text-decoration: underline;
+  text-decoration-color: var(--evo-accent);
+  text-underline-offset: 3px;
+  transition: color 0.3s ease;
+}
+
+.legal-prose a:hover {
+  color: var(--evo-accent);
+}
+
+.legal-prose strong {
+  color: var(--evo-text);
+  font-weight: 600;
+}
+
+.legal-section {
+  scroll-margin-top: 2rem;
+}

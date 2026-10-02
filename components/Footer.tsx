@@ -72,6 +72,11 @@ export function Footer() {
             the external booking platform.
           </p>
           <p className="text-xs text-muted md:text-right">
+            {/* CalOPPA: the home page must link to the policy with the word "privacy". */}
+            <a href="/legal" className="underline-offset-4 transition-colors duration-300 hover:text-ink hover:underline">
+              Privacy &amp; Legal
+            </a>
+            <span aria-hidden="true" className="mx-3">·</span>
             © {year} {siteConfig.businessName}
           </p>
         </div>
