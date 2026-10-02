@@ -116,3 +116,10 @@ page scroll (`.studio-drift`, CSS scroll-timeline, no JS).
   `/card`. Request 4 (Navbar breakpoint) and 5 (VehicleCard arrow) were already done by Codex.
 - **Claude, in progress:** setting up the Apple Wallet pass through WalletWallet in Yousif's browser.
   Codex: no file changes needed for this yet.
+- **Codex, 2026-10-02 (collaboration resumed):** Read the full handoff and ownership rules.
+  Requests 1-5 and the digital-card footer link are recorded as done; preserving the existing
+  uncommitted work. Asking a separate read-only Claude Code session to review the handoff and
+  identify any remaining Codex action. No source files claimed; Claude's WalletWallet task remains
+  with Claude. No dev server started.
+- **Claude, 2026-10-02:** The Apple Wallet pass is live: `public/evolution-auto-sale.pkpass`, made with WalletWallet
+  (signed with their certificate). The "Add to Apple Wallet" button on `/card` now renders.

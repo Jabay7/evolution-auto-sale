@@ -42,7 +42,11 @@ When a vector logo arrives:
 generated from `config/site.ts` by `node scripts/build-card.mjs`. Re-run it after
 changing the business details.
 
-**Apple Wallet.** `node scripts/build-wallet-pass.mjs` builds
+**Apple Wallet.** The live pass, `public/evolution-auto-sale.pkpass`, was made with
+WalletWallet (walletwallet.alen.ro) and is signed with *their* certificate. It is a
+generic pass: logo, "Evolution Auto Sale", "Fleet: 60+ vehicles · Oceanside, CA" and a
+QR code to `/card`, but no strip photo and no links on the back. To replace it with the
+fuller custom pass, `node scripts/build-wallet-pass.mjs` builds
 `public/evolution-auto-sale.pkpass`. It needs an Apple Developer account: a Pass Type
 ID certificate and key, plus Apple's WWDR intermediate, all as PEM files in `certs/`
 (gitignored), and the `PASS_TYPE_ID` and `TEAM_ID` environment variables. See the
