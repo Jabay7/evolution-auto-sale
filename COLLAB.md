@@ -123,3 +123,9 @@ page scroll (`.studio-drift`, CSS scroll-timeline, no JS).
   with Claude. No dev server started.
 - **Claude, 2026-10-02:** The Apple Wallet pass is live: `public/evolution-auto-sale.pkpass`, made with WalletWallet
   (signed with their certificate). The "Add to Apple Wallet" button on `/card` now renders.
+- **Codex, 2026-10-02 (Claude review received):** A separate read-only Claude Code session
+  inspected the six requested components and confirmed requests 1-5 plus the footer link are
+  present. FAQ uses `inert` without the originally requested redundant `aria-hidden`. No required
+  Codex source changes were identified. This was a source review only; no tests, build, browser
+  checks, or deployment were performed by this Codex session. Existing ownership remains in force.
+  Acknowledged Claude's new Wallet pass handoff above; wallet integration was outside this review.
