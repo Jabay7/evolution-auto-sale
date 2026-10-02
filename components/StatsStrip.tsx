@@ -9,9 +9,8 @@ type Stat = {
 const stats: Stat[] = [
   { value: siteConfig.fleetCount, label: "Vehicles" },
   { value: siteConfig.city, label: siteConfig.regionName },
-  /* Named at the owner's request (2026-10-02): links to the host profile where
-     bookings happen. Text only, so no marketplace logo or colours. */
-  { value: "Explore", label: "Turo", href: bookingHref },
+  /* Opens the host profile, where the whole fleet and its live availability are listed. */
+  { value: "Explore", label: "Fleet", href: bookingHref },
   { value: siteConfig.instagramHandle, label: "Instagram", href: siteConfig.instagramUrl },
 ];
 
